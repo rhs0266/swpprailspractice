@@ -1,4 +1,10 @@
 class ArticlesController < ApplicationController
+    def destroy
+        @article = Article.find(params[:id])
+        @article.destroy
+
+        redirect_to articles_path
+    end
     def index
         @articles = Article.all
     end
@@ -6,15 +12,30 @@ class ArticlesController < ApplicationController
         @article = Article.find(params[:id])
     end
     def new
+        @article = Article.new
+    end
+    def edit
+        @article=Article.find(params[:id])
+    end
+    def update
+        @article = Article.find(params[:id])
+        if @article.update(article_params)
+            redirect_to @article
+        else
+            render 'edit'
+        end
     end
     def create
         @article = Article.new(article_params)
         # Initialize new model with filtered parameter.
-        @article.save
-        # Store the model to DB
-        # Returns success or failure as a boolean value
-        redirect_to @article
-        # Redirect automatically to 'show' action, defined later.
+        if @article.save
+            # Store the model to DB
+            # Returns success or failure as a boolean value
+            redirect_to @article
+            # Redirect automatically to 'show' action, defined later.
+        else
+            render 'new'
+        end
     end
 
     private
