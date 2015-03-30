@@ -1,10 +1,13 @@
 class ArticlesController < ApplicationController
+<<<<<<< HEAD
     def destroy
         @article = Article.find(params[:id])
         @article.destroy
 
         redirect_to articles_path
     end
+=======
+>>>>>>> 5a41245922c412ce32382f727bd6bed4ad951369
     def index
         @articles = Article.all
     end
